@@ -186,22 +186,35 @@ function blinkEye(el) {
   window.setTimeout(() => el.classList.remove("is-closed"), 220);
 }
 
-function blinkAllEyes() {
-  document.querySelectorAll(".eye-blink").forEach((el) => {
-    window.setTimeout(() => blinkEye(el), Math.random() * 160);
-  });
-}
-
 function startEyeBlinks() {
   mountEyes();
   if (reduceMotion.matches) return;
 
-  const cycle = () => {
-    if (!document.hidden) blinkAllEyes();
-    window.setTimeout(cycle, 5400);
+  const aboutEyes = [
+    ...document.querySelectorAll('[data-eyes="about"] .eye-blink'),
+  ];
+  const otherEyes = [...document.querySelectorAll(".eye-blink")].filter(
+    (el) => !el.closest('[data-eyes="about"]'),
+  );
+
+  const blinkGroup = (eyes, stagger) => {
+    eyes.forEach((el) => {
+      window.setTimeout(() => blinkEye(el), Math.random() * stagger);
+    });
   };
 
-  window.setTimeout(cycle, 900);
+  const cycleOthers = () => {
+    if (!document.hidden) blinkGroup(otherEyes, 160);
+    window.setTimeout(cycleOthers, 5400);
+  };
+
+  const cycleAbout = () => {
+    if (!document.hidden) blinkGroup(aboutEyes, 280);
+    window.setTimeout(cycleAbout, 18000);
+  };
+
+  window.setTimeout(cycleOthers, 900);
+  window.setTimeout(cycleAbout, 6500);
 }
 
 startEyeBlinks();
@@ -238,6 +251,8 @@ const ORB = {
   pink: [255, 66, 93],
   period: 10000,
   srcSize: 900,
+  swirlStart: 1400,
+  swirlEnd: 8400,
 };
 
 function easeInOut(t) {
@@ -246,11 +261,24 @@ function easeInOut(t) {
 
 function swirlAmount(elapsed) {
   const p = elapsed % ORB.period;
-  if (p < 1400) return 0;
-  if (p < 4200) return easeInOut((p - 1400) / 2800);
+  if (p < ORB.swirlStart) return 0;
+  if (p < 4200) return easeInOut((p - ORB.swirlStart) / 2800);
   if (p < 5600) return 1;
-  if (p < 8400) return 1 - easeInOut((p - 5600) / 2800);
+  if (p < ORB.swirlEnd) return 1 - easeInOut((p - 5600) / 2800);
   return 0;
+}
+
+function triggerOrbSparkles() {
+  document.querySelectorAll(".orb-sparkle").forEach((el) => {
+    el.classList.remove("is-sparkling");
+    void el.getBoundingClientRect();
+    el.classList.add("is-sparkling");
+    el.addEventListener(
+      "animationend",
+      () => el.classList.remove("is-sparkling"),
+      { once: true },
+    );
+  });
 }
 
 function loadLetterImage() {
@@ -277,7 +305,8 @@ function loadLetterImage() {
 
 function startOrbSwirl() {
   const canvas = document.querySelector(".orb-swirl");
-  if (!canvas) return;
+  if (!canvas || canvas.dataset.orbBound) return;
+  canvas.dataset.orbBound = "1";
   const ctx = canvas.getContext("2d", { alpha: true });
   if (!ctx) return;
 
@@ -285,8 +314,10 @@ function startOrbSwirl() {
   let srcData = null;
   let dest = null;
   let lastAmount = -1;
+  let lastSparkleAmount = 0;
+  let lastSparkleKind = "";
   let playing = !reduceMotion.matches;
-  let start = performance.now();
+  let start = 0;
   let frame = 0;
 
   function sizeCanvas() {
@@ -394,6 +425,14 @@ function startOrbSwirl() {
     }
     frame = window.requestAnimationFrame(render);
     const amount = swirlAmount(now - start);
+    if (lastSparkleAmount < 0.02 && amount >= 0.02 && lastSparkleKind !== "start") {
+      lastSparkleKind = "start";
+      triggerOrbSparkles();
+    } else if (lastSparkleAmount < 0.98 && amount >= 0.98 && lastSparkleKind !== "end") {
+      lastSparkleKind = "end";
+      triggerOrbSparkles();
+    }
+    lastSparkleAmount = amount;
     if (Math.abs(amount - lastAmount) < 0.002) return;
     lastAmount = amount;
     if (amount < 0.004) paintReadable();
@@ -401,10 +440,9 @@ function startOrbSwirl() {
   }
 
   function play() {
-    if (frame || !playing || !srcData) return;
-    start = performance.now();
-    lastAmount = -1;
-    frame = window.requestAnimationFrame(render);
+    if (!playing || !srcData) return;
+    if (!start) start = performance.now();
+    if (!frame) frame = window.requestAnimationFrame(render);
   }
 
   loadLetterImage()

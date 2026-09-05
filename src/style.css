@@ -86,7 +86,7 @@
   --header-pt: 16px;
   --about-py: 64px;
   --cta-py: 164px;
-  --card-pad: 16px;
+  --card-pad: 24px;
   --card-media-h: 272px;
   --star-size: 220px;
   --reel-w: 288px;
@@ -284,7 +284,7 @@ main {
 
 .hero {
   width: min(100%, var(--content));
-  min-height: 343px;
+  min-height: 0;
   display: grid;
   grid-template-columns: minmax(0, var(--hero-copy-w)) minmax(280px, var(--hero-visual-w));
   justify-content: space-between;
@@ -383,19 +383,70 @@ main {
 
 .hero-visual {
   position: relative;
-  justify-self: end;
-  width: min(100%, var(--hero-visual-w));
+  justify-self: center;
+  width: min(calc(100% * 500 / 551.448), var(--hero-visual-w));
   aspect-ratio: 500 / 343;
 }
 
-.hero-square {
+/* Laptop behind the portrait — Figma 120:4042 relative to Frame 12 (500×343) */
+.hero-laptop {
   position: absolute;
-  left: 0;
-  top: 10.5%;
-  width: 100.6%;
-  height: 85.71%;
-  background: var(--surface);
+  left: -6.2%;
+  top: 16.03%;
+  width: 110.29%;
+  height: 89.66%;
   z-index: 0;
+  pointer-events: none;
+}
+
+.hero-laptop-lid,
+.hero-laptop-bezel,
+.hero-laptop-base {
+  position: absolute;
+  max-width: none;
+  max-height: none;
+  object-fit: fill;
+}
+
+.hero-laptop-lid {
+  left: 9.5%;
+  top: 0;
+  width: 81.01%;
+  height: 98.18%;
+}
+
+.hero-laptop-bezel {
+  left: 10.13%;
+  top: 0.92%;
+  width: 79.78%;
+  height: 93.35%;
+}
+
+.hero-laptop-display {
+  position: absolute;
+  left: 12.32%;
+  top: 6.8%;
+  width: 75.36%;
+  height: 82.9%;
+  background: #0f0f10;
+  overflow: hidden;
+}
+
+.hero-laptop-ui {
+  position: absolute;
+  left: -0.47%;
+  top: -0.78%;
+  width: 118.22%;
+  height: 102.37%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.hero-laptop-base {
+  left: 0;
+  top: 97.05%;
+  width: 100%;
+  height: 2.95%;
 }
 
 .hero-portrait {
@@ -405,6 +456,7 @@ main {
   top: 13.11%;
   width: 103.79%;
   height: 90.97%;
+  max-width: none;
   object-fit: contain;
 }
 
@@ -482,28 +534,68 @@ main {
   min-width: 0;
 }
 
+.card-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--card-pad) var(--card-pad) 0;
+}
+
+.card-name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+}
+
 .card-title {
-  padding: var(--card-pad);
   font-family: var(--font-sans);
   font-weight: 500;
   font-size: var(--text-body);
   line-height: normal;
-  color: var(--text);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .card-media {
   position: relative;
   height: var(--card-media-h);
-  background: var(--surface);
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-inline: 12px;
 }
 
-.card-media img {
-  width: var(--star-size);
-  height: var(--star-size);
-  object-fit: contain;
-  overflow: clip;
+.card-shot {
+  display: block;
+  border: 1.2px solid var(--shot-border, #00fff2);
+  border-radius: 6px;
+  object-fit: cover;
+  background: #d9d9d9;
+  flex-shrink: 0;
+}
+
+.card-shot-wide {
+  width: min(72%, 308px);
+  height: 190px;
+}
+
+.card-shot-phone {
+  width: 96px;
+  height: 192px;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 var(--card-pad) var(--card-pad);
+  font-weight: 500;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .about {
@@ -622,22 +714,25 @@ main {
 .orb-sparkle {
   transform-box: fill-box;
   transform-origin: center;
-  animation: orb-sparkle 2.8s ease-in-out infinite;
   --sparkle-size: 1;
+  opacity: 0;
+  transform: scale(calc(var(--sparkle-size, 1) * 0.2));
 }
 
 .orb-sparkle-a {
   --sparkle-size: 0.58;
 }
 
-.orb-sparkle-b {
-  animation-duration: 3.4s;
-  animation-delay: -0.8s;
+.orb-sparkle.is-sparkling {
+  animation: orb-sparkle 1.2s ease-in-out both;
 }
 
-.orb-sparkle-c {
-  animation-duration: 3.1s;
-  animation-delay: -1.6s;
+.orb-sparkle-b.is-sparkling {
+  animation-delay: 0.16s;
+}
+
+.orb-sparkle-c.is-sparkling {
+  animation-delay: 0.32s;
 }
 
 .orb-chrome {
@@ -1059,6 +1154,20 @@ main {
 
   body.nav-open {
     overflow: hidden;
+  }
+
+  .card-name {
+    font-size: 24px;
+  }
+
+  .card-shot-wide {
+    width: min(68%, 240px);
+    height: 150px;
+  }
+
+  .card-shot-phone {
+    width: 76px;
+    height: 152px;
   }
 
   .about-visual {
