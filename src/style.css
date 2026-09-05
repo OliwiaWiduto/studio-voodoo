@@ -1,43 +1,52 @@
 /* Figma tokens — MacBook Air 16, node 34:561
    Canvas 1280 × 3465 · content 1200 · gutter 40
-   Type: Komet (Adobe) with Satoshi fallback · RL Folklor (Adobe) with Bricolage Grotesque fallback
+   Type: komet + rl-folklor from Adobe Fonts (kit nio6nbt)
+         Satoshi / Bricolage Grotesque as self-hosted fallbacks
 */
 
 @font-face {
-  font-family: "Komet";
-  src: local("Komet Medium"), local("Komet-Medium");
+  font-family: "Satoshi";
+  src: url("./fonts/satoshi-500.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Komet";
-  src: local("Komet Bold"), local("Komet-Bold");
+  font-family: "Satoshi";
+  src: url("./fonts/satoshi-700.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Komet";
-  src: local("Komet Heavy"), local("Komet-Heavy");
+  font-family: "Satoshi";
+  src: url("./fonts/satoshi-900.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Komet";
-  src: local("Komet Black"), local("Komet-Black");
+  font-family: "Satoshi";
+  src: url("./fonts/satoshi-900.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "RL Folklor";
-  src: local("RL Folklor Black"), local("RLFolklor-Black"), local("rl-folklor");
+  font-family: "Bricolage Grotesque";
+  src: url("./fonts/bricolage-800.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("./fonts/bricolage-800.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -53,8 +62,8 @@
   --lime: #b7ea00;
   --ink: #000000;
 
-  --font-sans: "Komet", komet, Satoshi, "Satoshi", system-ui, sans-serif;
-  --font-display: "RL Folklor", rl-folklor, "Bricolage Grotesque", system-ui, sans-serif;
+  --font-sans: komet, "Satoshi", system-ui, sans-serif;
+  --font-display: "rl-folklor", "Bricolage Grotesque", system-ui, sans-serif;
 
   --content: 1200px;
   --gutter: 40px;

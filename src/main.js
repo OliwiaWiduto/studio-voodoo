@@ -39,7 +39,6 @@ const typedWords = [
   "ILLUSTRATION",
   "WIREFRAMING",
   "UX DESIGN",
-  "USER EXPERIENCE",
 ];
 
 const heading = document.querySelector("#hero-heading");
