@@ -148,6 +148,11 @@ button {
   box-shadow: var(--focus);
 }
 
+::selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -933,14 +938,6 @@ main {
   .about-copy {
     min-width: 0;
     max-width: 100%;
-  }
-
-  .about-komet {
-    font-size: clamp(28px, 8vw, 48px);
-  }
-
-  .about-folklor {
-    font-size: clamp(32px, 9vw, 52px);
   }
 
   .about-visual {
