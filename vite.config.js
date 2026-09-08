@@ -13,6 +13,8 @@ export default defineConfig({
       input: {
         main: resolve(root, "index.html"),
         purplebricks: resolve(root, "purplebricks.html"),
+        taka: resolve(root, "taka.html"),
+        scout: resolve(root, "scout.html"),
       },
     },
   },

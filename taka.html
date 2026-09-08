@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="How Olivia rebuilt Taka’s design system — repairing team dynamics by overhauling a dysfunctional library."
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:title" content="TAKA — Olivia" />
+    <meta
+      property="og:description"
+      content="Repairing team dynamics by overhauling a dysfunctional design system."
+    />
+    <meta property="og:type" content="article" />
+    <title>TAKA — Olivia</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin />
+    <link rel="stylesheet" href="https://use.typekit.net/nio6nbt.css?v=2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet" />
+  </head>
+  <body class="case-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="page">
+      <header class="site-header">
+        <a class="logo" href="index.html" aria-label="Olivia home">
+          <img src="assets/logo.png" width="40" height="40" alt="" />
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <span class="nav-toggle-bars" aria-hidden="true"></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
+
+        <nav id="site-nav" class="site-nav" aria-label="Primary">
+          <a href="index.html#work">work</a>
+          <a href="index.html#resources">resources</a>
+          <a href="index.html#contact">contact</a>
+        </nav>
+      </header>
+
+      <main id="main" class="case">
+        <h1 class="case-title">Repairing team dynamics by overhauling a dysfunctional design system</h1>
+
+        <img
+          class="case-shot"
+          src="assets/work/taka/hero.png"
+          width="2400"
+          height="1094"
+          alt="Taka football analytics screens: dashboards, pitch maps, and video clips"
+        />
+
+        <div class="case-layout">
+          <aside class="case-aside">
+            <p class="case-aside-name">TAKA</p>
+            <dl class="case-meta">
+              <div>
+                <dt>Role</dt>
+                <dd>Senior designer</dd>
+              </div>
+              <div>
+                <dt>Timeline</dt>
+                <dd>2023 – 2026</dd>
+              </div>
+              <div>
+                <dt>Location</dt>
+                <dd>UK</dd>
+              </div>
+            </dl>
+          </aside>
+
+          <div class="case-body">
+        <div class="case-prose">
+          <p>When I joined Taka, the design and research function was still in its infancy. My first challenge was addressing a bloated and broken design system.</p>
+        </div>
+
+        <section class="case-block" aria-labelledby="taka-context">
+          <h2 id="taka-context" class="case-heading">Context</h2>
+          <div class="case-prose">
+            <p>It had been created by someone still learning Figma, and had grown so unwieldy it had to be split into three files just to keep Figma from crashing. Naturally, this made collaboration nearly impossible and created hesitation across the team—particularly from PMs—who’d seen previous design system “fixes” derail roadmaps.</p>
+            <p>Meanwhile, the platform’s UX was full of anti-patterns: dropdowns that updated information off-screen, inconsistent components, and a front-end architecture that didn’t support reusability. To make matters worse, devs were hardcoding UI elements and tokens, meaning even small changes couldn’t be applied globally without manual updates.</p>
+            <p>It was clear we needed a reset—but a pragmatic one that wouldn’t slow delivery or burn out an already skeptical team.</p>
+          </div>
+          <div class="case-split">
+            <figure>
+              <figcaption>Before</figcaption>
+              <img
+                src="assets/work/taka/before.png"
+                width="2400"
+                height="1088"
+                alt="The original bloated Taka design system spread across a Figma canvas"
+              />
+            </figure>
+            <figure>
+              <figcaption>After</figcaption>
+              <img
+                src="assets/work/taka/after.png"
+                width="2400"
+                height="1049"
+                alt="The rebuilt Taka design system with a tighter component library"
+              />
+            </figure>
+          </div>
+        </section>
+
+        <section class="case-block" aria-labelledby="taka-role">
+          <h2 id="taka-role" class="case-heading">My role</h2>
+          <div class="case-prose">
+            <p>My goal was twofold:</p>
+            <ol>
+              <li>Build a system the team would actually want to use.</li>
+              <li>Do it in a way that wouldn’t slow down product development or require a full design overhaul.</li>
+            </ol>
+            <p>To get buy-in, I focused on quick wins. I met with engineers, product managers, and marketers to understand their pain points and where design could move the needle for the business. One key insight: rebuilding everything from scratch wouldn’t be realistic, nor necessary.</p>
+            <p>To bring everyone along, I created a diagram that showed how design decisions had a snowball effect across the business. It helped illustrate how investing in the design system would benefit everyone, making it easier to align cross-functionally and advocate for contributions beyond just the design team.</p>
+          </div>
+          <div class="case-panel">
+            <img
+              src="assets/work/taka/snowball.png"
+              width="2400"
+              height="1087"
+              alt="Diagram showing how design system decisions snowball across the business"
+            />
+          </div>
+        </section>
+
+        <section class="case-block" aria-labelledby="taka-approach">
+          <h2 id="taka-approach" class="case-heading">Approach</h2>
+          <div class="case-prose">
+            <p>Taka had three products at the time, so I proposed a centralized design system with tailored themes and extensions for each. To move fast, I explored existing UI libraries that would align with our stack—since our engineers were already using Tailwind, I pitched Flowbite as a base system. After comparing a few libraries and sharing mockups, we chose Flowbite for its simplicity and breadth.</p>
+            <p>To extend it efficiently, I collaborated with an engineer to build a custom Figma plugin that would wrap each component in a stylable container without detaching properties—letting me theme it per product without detaching instances. This small technical workaround was a game-changer and let me scale design while keeping everything maintainable.</p>
+          </div>
+          <div class="case-panel">
+            <img
+              src="assets/work/taka/plugin.png"
+              width="1000"
+              height="1081"
+              alt="Figma Scripter plugin used to wrap components without detaching instances"
+            />
+          </div>
+          <div class="case-prose">
+            <p>I led a team demo to explain the system’s structure and benefits. Getting devs excited was crucial—by showing how it would simplify their work and reduce maintenance overhead, we built real momentum. From there, I worked with a mid level designer, guiding them through the system so they could confidently contribute as it evolved.</p>
+            <p>One of my colleague's biggest concerns was that the design system would slow him down. The previous system included entire pages with pre-populated data, meant to act as templates—but instead, it resulted in a bloated library full of ultra-specific components. To rebuild his confidence and make the system easier to work with, I advocated to focus on building atoms and molecules rather than full templates. I showed him how to create truly reusable components—for example, designing one flexible input field that could work for name, birthday, or email, instead of creating a separate component for each.</p>
+          </div>
+          <div class="case-panel">
+            <img
+              src="assets/work/taka/atoms.png"
+              width="2400"
+              height="1386"
+              alt="Reusable atom and molecule components from the Taka design system"
+            />
+          </div>
+        </section>
+
+        <section class="case-block" aria-labelledby="taka-outcome">
+          <h2 id="taka-outcome" class="case-heading">Outcome</h2>
+          <div class="case-prose">
+            <p>In just two months, I rebuilt Taka’s design system and applied it while designing a brand-new version of the app. By building and testing in parallel, we ensured the system was functional, scalable, and easy to adopt.</p>
+            <p>The results spoke for themselves:</p>
+            <ol>
+              <li>Our engineers now work from a single, consistent UI library.</li>
+              <li>We reduced time spent on design handoffs and rework.</li>
+              <li>PMs were back on board with the design system—this time for good.</li>
+            </ol>
+            <p>This work was so well received that I was invited to speak at a Friends of Figma event, where I demoed our process and shared insights on designing under pressure with limited resources.</p>
+            <p>Below is our app store banner.</p>
+          </div>
+          <div class="case-panel">
+            <img
+              src="assets/work/taka/app-store.png"
+              width="2400"
+              height="1172"
+              alt="Taka App Store banner with product screens on a dark background"
+            />
+          </div>
+          <div class="case-prose">
+            <p>Below is a video of a couple of pages from the Taka design system.</p>
+          </div>
+          <div class="case-video">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/3SmdXOJwQOY"
+              title="Pages from the Taka design system"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </section>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
