@@ -853,7 +853,6 @@ if (contactForm instanceof HTMLFormElement) {
     const formData = new FormData(contactForm);
     const name = String(formData.get("name") ?? "").trim();
     const email = String(formData.get("email") ?? "").trim();
-    const company = String(formData.get("company") ?? "").trim();
     const message = String(formData.get("message") ?? "").trim();
 
     submitButton.disabled = true;
@@ -868,7 +867,6 @@ if (contactForm instanceof HTMLFormElement) {
       message,
       _subject: "Work with Olivia — studio-voodoo.com",
     };
-    if (company) body.company = company;
 
     try {
       const response = await fetch("https://formsubmit.co/ajax/olivia@studio-voodoo.com", {

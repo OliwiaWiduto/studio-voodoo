@@ -1650,26 +1650,30 @@ body.nav-cta-visible .site-nav .nav-contact-link:focus-visible {
 }
 
 .contact-page .page {
-  padding-bottom: var(--section-gap);
+  padding-bottom: calc(var(--section-gap) / 2);
   align-items: stretch;
+}
+
+.contact-page .site-footer {
+  margin-top: calc(var(--section-gap) / 2);
 }
 
 .contact-page main.contact {
   width: min(100%, var(--content));
   margin-inline: auto;
   align-self: stretch;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .contact {
-  width: min(100%, 640px);
+  width: 100%;
   align-items: stretch;
   gap: 40px;
 }
 
 .contact-page .contact-intro,
 .contact-page .contact-form {
-  width: min(100%, 640px);
+  width: 100%;
   max-width: 100%;
 }
 
@@ -1682,10 +1686,7 @@ body.nav-cta-visible .site-nav .nav-contact-link:focus-visible {
 .contact-title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: min(
-    clamp(40px, 1.5rem + 2.5vw, 72px),
-    calc((min(640px, 100vw - 2 * var(--gutter))) / 10.5)
-  );
+  font-size: clamp(40px, 1.5rem + 2.5vw, 72px);
   line-height: 1.05;
   text-transform: uppercase;
   white-space: nowrap;
@@ -1694,7 +1695,7 @@ body.nav-cta-visible .site-nav .nav-contact-link:focus-visible {
 .contact-lede {
   font-weight: var(--text-weight);
   color: var(--muted);
-  max-width: 52ch;
+  max-width: 62ch;
 }
 
 .contact-lede a {
@@ -1712,6 +1713,14 @@ body.nav-cta-visible .site-nav .nav-contact-link:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
+}
+
+.contact-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
 }
 
 .contact-field {
@@ -2558,6 +2567,15 @@ main.case > .case-shot {
     width: min(288px, 78vw);
     height: auto;
     aspect-ratio: 288 / 475;
+  }
+
+  .contact-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-title {
+    white-space: normal;
+    text-wrap: balance;
   }
 
   .reels-intro-copy {
