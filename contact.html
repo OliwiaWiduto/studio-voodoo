@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Get in touch with Olivia — UX design partner for bold product work."
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:title" content="Contact — Olivia" />
+    <meta
+      property="og:description"
+      content="Tell me about your project and let’s see what a little design voodoo can do."
+    />
+    <meta property="og:type" content="website" />
+    <title>Contact — Olivia</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin />
+    <link rel="stylesheet" href="https://use.typekit.net/nio6nbt.css?v=2" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <style>
+      html {
+        background: #000;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body class="contact-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="page">
+      <header class="site-header">
+        <a class="logo" href="index.html" aria-label="Olivia home">
+          <img src="assets/logo.png" width="40" height="40" alt="" />
+        </a>
+
+        <nav id="site-nav" class="site-nav" aria-label="Primary">
+          <a href="https://www.linkedin.com/in/oliwia-w-a86b95115/" target="_blank" rel="noopener noreferrer">linkedin</a>
+          <a href="assets/OliwiaWiduto-CV.pdf" download="OliwiaWiduto-CV.pdf">download cv</a>
+          <a class="nav-contact-link" href="contact.html" aria-current="page">contact</a>
+        </nav>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <span class="nav-toggle-bars" aria-hidden="true"></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
+      </header>
+
+      <main id="main" class="contact">
+        <header class="contact-intro">
+          <h1 class="contact-title">Let’s work together</h1>
+          <p class="contact-lede">
+            Share a bit about your product, timeline, and what you’re trying to solve. I’ll get back to you
+            at <a href="mailto:olivia@studio-voodoo.com">olivia@studio-voodoo.com</a>.
+          </p>
+        </header>
+
+        <form id="contact-form" class="contact-form" novalidate>
+          <div class="contact-field">
+            <label for="contact-name">Name</label>
+            <input
+              id="contact-name"
+              name="name"
+              type="text"
+              autocomplete="name"
+              required
+              maxlength="120"
+            />
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-email">Email</label>
+            <input
+              id="contact-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              inputmode="email"
+              required
+              maxlength="254"
+            />
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-company">Company or project <span class="contact-optional">(optional)</span></label>
+            <input
+              id="contact-company"
+              name="company"
+              type="text"
+              autocomplete="organization"
+              maxlength="120"
+            />
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-message">Message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows="6"
+              required
+              maxlength="5000"
+            ></textarea>
+          </div>
+
+          <input
+            class="contact-honey"
+            type="text"
+            name="_honey"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          />
+
+          <div class="contact-actions">
+            <button class="btn btn-lime contact-submit" type="submit">Send message</button>
+            <p class="contact-status" id="contact-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer-rule" aria-hidden="true"></div>
+      <div class="site-footer-inner">
+        <p class="site-footer-copy">© Studio Voodoo 2026</p>
+        <nav class="site-footer-social" aria-label="Social">
+          <a href="https://www.tiktok.com/@designvoodoo" target="_blank" rel="noopener noreferrer">
+            <img src="assets/social/tiktok-white.svg" width="18" height="18" alt="" />
+            TikTok
+          </a>
+          <a href="https://www.youtube.com/@designvoodoo" target="_blank" rel="noopener noreferrer">
+            <img src="assets/social/youtube-white.svg" width="18" height="18" alt="" />
+            YouTube
+          </a>
+          <a href="https://www.linkedin.com/in/oliwia-w-a86b95115/" target="_blank" rel="noopener noreferrer">
+            <img src="assets/social/linkedin-white.svg" width="18" height="18" alt="" />
+            LinkedIn
+          </a>
+        </nav>
+        <a class="site-footer-email" href="mailto:olivia@studio-voodoo.com">olivia@studio-voodoo.com</a>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
