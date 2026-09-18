@@ -12,7 +12,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(root, "index.html"),
-        "index-b": resolve(root, "index-b.html"),
         purplebricks: resolve(root, "purplebricks.html"),
         taka: resolve(root, "taka.html"),
         scout: resolve(root, "scout.html"),
