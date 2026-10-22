@@ -240,10 +240,113 @@ const eyeLayouts = {
 const workMarkerFillPath =
   "M437.628 7.18643C437.573 5.06214 437.518 2.93786 437.463 0.813568C411.449 1.13477 385.251 2.09137 359.082 3.67642C250.42 12.7414 136.46 19.2423 38.9358 79.7746C15.7801 95.7335 -5.23198 125.058 1.39605 156.677C7.2536 186.739 26.7157 209.476 46.4407 229.362C86.6693 268.375 134.583 298.098 182.38 325.388C196.753 333.505 210.751 340.991 224.379 347.872C327.234 397.339 458.085 450.957 566.954 378.826C671.833 298.186 627.07 123.16 515.24 76.2807C490.882 65.3005 464.357 60.0124 437.614 59.8132C437.568 61.9377 437.522 64.0623 437.476 66.1868C463.427 67.0792 488.747 72.862 511.705 83.894C617.41 131.092 653.244 297.383 558.082 366.92C460.271 431.382 333.049 381.988 232.041 332.697C218.656 325.938 204.88 318.586 190.71 310.612C143.526 283.818 96.2203 254.551 57.7987 217.775C38.8901 199.213 21.3627 177.832 16.6549 153.921C11.3957 129.54 26.449 106.85 47.5924 91.4717C137.261 33.7407 252.308 23.2862 359.692 12.048C385.682 9.83672 411.735 8.21305 437.628 7.18643Z";
 
+const MARKER_DRAW_SEC = 0.95;
+
+let markerAudioCtx;
+let markerDrawVoice;
+let markerDrawBufferPromise;
+
+function canPlayMarkerSound() {
+  return (
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
+function getMarkerAudioContext() {
+  if (!markerAudioCtx) {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    markerAudioCtx = new Ctx();
+  }
+  return markerAudioCtx;
+}
+
+function loadMarkerDrawBuffer(ctx) {
+  if (!markerDrawBufferPromise) {
+    markerDrawBufferPromise = fetch(`${import.meta.env.BASE_URL}assets/sounds/marker-draw.wav`)
+      .then((res) => {
+        if (!res.ok) throw new Error("marker sound missing");
+        return res.arrayBuffer();
+      })
+      .then((ab) => ctx.decodeAudioData(ab));
+  }
+  return markerDrawBufferPromise;
+}
+
+function preloadMarkerDrawSound() {
+  const ctx = getMarkerAudioContext();
+  if (!ctx || !canPlayMarkerSound()) return;
+  void loadMarkerDrawBuffer(ctx).catch(() => {});
+}
+
+function stopMarkerDrawSound() {
+  if (!markerDrawVoice) return;
+  const { source, gain } = markerDrawVoice;
+  try {
+    source.stop();
+  } catch {
+    /* already stopped */
+  }
+  source.disconnect();
+  gain.disconnect();
+  markerDrawVoice = null;
+}
+
+async function playMarkerDrawSound() {
+  if (!canPlayMarkerSound()) return;
+
+  const ctx = getMarkerAudioContext();
+  if (!ctx) return;
+
+  stopMarkerDrawSound();
+  if (ctx.state === "suspended") {
+    await ctx.resume();
+  }
+
+  let buffer;
+  try {
+    buffer = await loadMarkerDrawBuffer(ctx);
+  } catch {
+    return;
+  }
+
+  const now = ctx.currentTime;
+  const duration = Math.min(MARKER_DRAW_SEC, buffer.duration);
+
+  const source = ctx.createBufferSource();
+  source.buffer = buffer;
+  source.playbackRate.value = 1;
+
+  const filter = ctx.createBiquadFilter();
+  filter.type = "highpass";
+  filter.frequency.value = 280;
+  filter.Q.value = 0.7;
+
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.55, now + 0.025);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+  source.connect(filter);
+  filter.connect(gain);
+  gain.connect(ctx.destination);
+
+  source.start(now);
+  source.stop(now + duration + 0.02);
+
+  markerDrawVoice = { source, gain };
+  source.onended = () => {
+    if (markerDrawVoice?.source === source) markerDrawVoice = null;
+  };
+}
+
 function mountWorkMarkerRings() {
   if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     return;
   }
+
+  preloadMarkerDrawSound();
 
   let markerIndex = 0;
 
@@ -294,8 +397,21 @@ function mountWorkMarkerRings() {
       }
     });
 
-    item.addEventListener("mouseleave", resetMarker);
+    const onMarkerStart = () => {
+      void playMarkerDrawSound();
+    };
+
+    item.addEventListener("mouseenter", onMarkerStart);
+    item.addEventListener("focusin", onMarkerStart);
+    item.addEventListener("mouseleave", () => {
+      resetMarker();
+      stopMarkerDrawSound();
+    });
     item.addEventListener("blur", resetMarker, true);
+    item.addEventListener("focusout", (event) => {
+      if (item.contains(event.relatedTarget)) return;
+      stopMarkerDrawSound();
+    }, true);
   });
 }
 
@@ -361,7 +477,8 @@ const HAND = { x: 52, y: 198 };
 function setHeroIconPaths() {
   const stage = document.querySelector(".hero-visual");
   if (!stage) return;
-  const { width, height } = stage.getBoundingClientRect();
+  const layer = stage.querySelector(".hero-foreground") || stage;
+  const { width, height } = layer.getBoundingClientRect();
   if (width < 8 || height < 8) return;
 
   const sx = width / 500;
