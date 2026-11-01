@@ -3070,6 +3070,18 @@ main.case > .case-shot {
     --hero-landing-peek: 80px;
     --hero-landing-pad-top: clamp(24px, 4vh, 48px);
     --hero-landing-pad-bottom: 0;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .hero + .profile {
+    margin-top: 0;
+  }
+
+  .profile {
+    position: relative;
+    z-index: var(--above-grain-z);
+    background-color: var(--bg);
   }
 
   .profile-grid {
@@ -3211,6 +3223,8 @@ main.case > .case-shot {
     --hero-landing-peek: 64px;
     --hero-landing-pad-top: clamp(16px, 3vh, 32px);
     --hero-landing-pad-bottom: 0;
+    min-height: 0;
+    max-height: none;
   }
 
   .nav-toggle {
